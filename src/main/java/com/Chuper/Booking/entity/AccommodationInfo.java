@@ -10,6 +10,7 @@ public class AccommodationInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long accommodationInfoId;
+
     private String accommodationName;
     private String accommodationCountry;
     private String accommodationCity;

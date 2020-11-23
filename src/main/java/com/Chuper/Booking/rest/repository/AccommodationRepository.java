@@ -10,5 +10,4 @@ public interface AccommodationRepository extends CrudRepository<Accommodation,Lo
 
     Accommodation findByAccommodationId(Long id);
     List<Accommodation> findAll();
-    List<Accommodation> findAllByAccommodationName(String name);
 }
