@@ -5,6 +5,7 @@ import com.Chuper.Booking.rest.service.EmployerService;
 import com.Chuper.Booking.rest.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200",maxAge = 10000)
 @RestController
@@ -25,8 +26,13 @@ public class EmployerController {
     }
 
     @PostMapping("/save")
-    public Long saveEmployer(@RequestBody Employee employee){
+    public Long saveEmployer(@RequestBody Employee employee,@RequestParam(name = "org") Long id){
         return employerService.save(employee).getEmployerId();
+    }
+
+    @GetMapping("/getAllInOrg")
+    public List<Employee> getAllOrgEmployer(){
+        return employerService.findAllEmployerByOrg();
     }
 
     @GetMapping("/getCurrentEmployer")

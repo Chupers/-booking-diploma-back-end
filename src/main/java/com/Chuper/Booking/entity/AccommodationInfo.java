@@ -16,7 +16,16 @@ public class AccommodationInfo {
     private String accommodationCity;
     private String accommodationStreet;
     private String accommodationDesc;
+    private Integer countStar;
 
+
+    public int getCountStar() {
+        return countStar;
+    }
+
+    public void setCountStar(int countStar) {
+        this.countStar = countStar;
+    }
 
     public String getAccommodationName() {
         return accommodationName;
@@ -59,5 +68,13 @@ public class AccommodationInfo {
     }
 
     public AccommodationInfo() {
+    }
+
+    public Long getAccommodationInfoId() {
+        return accommodationInfoId;
+    }
+
+    public void setAccommodationInfoId(Long accommodationInfoId) {
+        this.accommodationInfoId = accommodationInfoId;
     }
 }

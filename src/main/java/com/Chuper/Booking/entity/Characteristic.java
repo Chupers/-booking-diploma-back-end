@@ -1,5 +1,7 @@
 package com.Chuper.Booking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Characteristic {
     @OneToMany(mappedBy = "characteristic",fetch = FetchType.LAZY)
     private List<CharacteristicChild> characteristicChildren;
 
+    @JsonIgnore
     @ManyToOne
     private Accommodation accommodation;
 
@@ -51,4 +54,5 @@ public class Characteristic {
     public void setCharacteristicChildren(List<CharacteristicChild> characteristicChildren) {
         this.characteristicChildren = characteristicChildren;
     }
+
 }

@@ -1,19 +1,20 @@
 package com.Chuper.Booking.rest.service.Impl;
 
-import com.Chuper.Booking.entity.Accommodation;
-import com.Chuper.Booking.entity.AccommodationInfo;
-import com.Chuper.Booking.entity.Characteristic;
-import com.Chuper.Booking.entity.CharacteristicChild;
+import com.Chuper.Booking.entity.*;
 import com.Chuper.Booking.rest.repository.AccommodationInfoRepository;
 import com.Chuper.Booking.rest.repository.AccommodationRepository;
 import com.Chuper.Booking.rest.repository.CharacteristicChildRepository;
 import com.Chuper.Booking.rest.repository.CharacteristicRepository;
 import com.Chuper.Booking.rest.service.AccommodationService;
+import com.Chuper.Booking.rest.service.OrganizationService;
+import com.Chuper.Booking.rest.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccommodationServiceImpl implements AccommodationService {
@@ -22,12 +23,16 @@ public class AccommodationServiceImpl implements AccommodationService {
     private final AccommodationInfoRepository accommodationInfoRepository;
     private final CharacteristicChildRepository characteristicChildRepository;
     private final CharacteristicRepository characteristicRepository;
+    private final UserService userService;
+    private final OrganizationService organizationService;
 
-    public AccommodationServiceImpl(AccommodationRepository accommodationRepository, AccommodationInfoRepository accommodationInfoRepository, CharacteristicChildRepository characteristicChildRepository, CharacteristicRepository characteristicRepository) {
+    public AccommodationServiceImpl(AccommodationRepository accommodationRepository, AccommodationInfoRepository accommodationInfoRepository, CharacteristicChildRepository characteristicChildRepository, CharacteristicRepository characteristicRepository, UserService userService, OrganizationService organizationService) {
         this.accommodationRepository = accommodationRepository;
         this.accommodationInfoRepository = accommodationInfoRepository;
         this.characteristicChildRepository = characteristicChildRepository;
         this.characteristicRepository = characteristicRepository;
+        this.userService = userService;
+        this.organizationService = organizationService;
     }
 
     @Override
@@ -65,8 +70,32 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     public void submit(Long accommodationId){
         Accommodation accommodation = findById(accommodationId);
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserFacade userFacade = userService.findByUserName(userName);
+        Organization organization = userFacade.getEmployee().getOrganization();
+        accommodation.setOrganization(organization);
+        organization.getAccommodations().add(accommodation);
         accommodation.setSubmit(true);
         accommodationRepository.save(accommodation);
+
+    }
+
+    @Override
+    public List<Accommodation> findAllSubmitAccommodation() {
+        List<Accommodation> accommodationList = new ArrayList<>();
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Employee employee = userService.findByUserName(userName).getEmployee();
+        for (Accommodation accommodation: employee.getOrganization().getAccommodations()) {
+            accommodationList.add(accommodation);
+        }
+        return accommodationList;
+    }
+
+    @Override
+    public List<Accommodation> findAllAvailableAccommodation() {
+        return accommodationRepository.findAll().stream()
+                .filter(accommodation -> accommodation.getAccommodationInfo() != null)
+                .filter(Accommodation::getSubmit).collect(Collectors.toList());
     }
 
     @Override
@@ -89,5 +118,6 @@ public class AccommodationServiceImpl implements AccommodationService {
             }
         }
     }
+
 
 }

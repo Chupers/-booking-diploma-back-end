@@ -22,7 +22,9 @@ public class UserFacade {
     private String password;
 
     @OneToOne
-    Employee employee;
+    private Employee employee;
+
+    private String confirmHash;
 
     public Long getUserId() {
         return userId;
@@ -75,5 +77,13 @@ public class UserFacade {
         this.password = password;
     }
     public UserFacade(){
+    }
+
+    public String getConfirmHash() {
+        return confirmHash;
+    }
+
+    public void setConfirmHash(String confirmHash) {
+        this.confirmHash = confirmHash;
     }
 }

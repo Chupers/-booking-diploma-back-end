@@ -27,13 +27,16 @@ public class Accommodation {
 
     private Boolean isSubmit;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "accommodation")
-    private List<Employee> employeeList;
-
-
     @OneToMany(mappedBy = "accommodation",fetch = FetchType.LAZY)
     private List<Characteristic> characteristicList;
+
+    @JsonIgnore
+    @ManyToOne
+    private Organization organization;
+
+    @OneToMany(mappedBy = "accommodation",fetch = FetchType.LAZY)
+    private List<Room> rooms;
+
 
     public List<Characteristic> getCharacteristicList() {
         return characteristicList;
@@ -67,14 +70,6 @@ public class Accommodation {
         this.accommodationType = accommodationType;
     }
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
-
     public AccommodationInfo getAccommodationInfo() {
         return accommodationInfo;
     }
@@ -105,5 +100,21 @@ public class Accommodation {
 
     public void setSubmit(Boolean submit) {
         isSubmit = submit;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

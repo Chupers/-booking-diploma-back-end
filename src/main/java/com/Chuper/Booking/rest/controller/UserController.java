@@ -21,6 +21,15 @@ public class UserController {
         bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
+    @PostMapping("/signUpCustomer")
+    Long singUpCustomer(@RequestBody LoginModel loginModel){
+        UserFacade userFacade = new UserFacade(loginModel.getUsername(),
+                bCryptPasswordEncoder.encode(loginModel.getPassword()));
+        userFacade.setUserRole(UserRoleList.USER);
+        userService.save(userFacade);
+        return userFacade.getUserId();
+    }
+
     @PostMapping("/signUp")
     Long saveUser(@RequestBody LoginModel loginModel){
         UserFacade userFacade = new UserFacade(loginModel.getUsername(),

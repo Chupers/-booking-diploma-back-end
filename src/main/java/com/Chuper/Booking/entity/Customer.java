@@ -4,13 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class Employee {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long employerId;
+    private Long id;
 
     @NotNull
     private String name;
@@ -20,20 +21,22 @@ public class Employee {
 
     private String phone;
 
+    private String passportNumber = "";
+
     @JsonIgnore
     @OneToOne
     private UserFacade userFacade;
 
     @JsonIgnore
-    @ManyToOne
-    private Organization organization;
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+    private List<Reservation> reservationList;
 
-    public Long getEmployerId() {
-        return employerId;
+    public Long getId() {
+        return id;
     }
 
-    public void setEmployerId(Long employerId) {
-        this.employerId = employerId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -60,6 +63,14 @@ public class Employee {
         this.phone = phone;
     }
 
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+    }
+
     public UserFacade getUserFacade() {
         return userFacade;
     }
@@ -68,12 +79,12 @@ public class Employee {
         this.userFacade = userFacade;
     }
 
-    public Organization getOrganization() {
-        return organization;
+    public List<Reservation> getReservationList() {
+        return reservationList;
     }
 
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
     }
 
 

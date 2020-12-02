@@ -42,5 +42,19 @@ public class AccommodationController {
     saveCharacteristic(@RequestParam(name = "id") Long id, @RequestBody List<Characteristic> characteristics){
         accommodationService.characteristicSave(id,characteristics);
     }
+    @PostMapping("/submit")
+    public void submitAccommodation(@RequestParam(name = "id") Long id){
+        accommodationService.submit(id);
+    }
+
+    @GetMapping("/getSubmits")
+    public List<Accommodation> getAllAvailableAccommodation(){
+        return accommodationService.findAllSubmitAccommodation();
+    }
+
+    @GetMapping("/getById")
+    public Accommodation getAccommodationById(@RequestParam(name = "id") Long id){
+        return accommodationService.findById(id);
+    }
 
 }

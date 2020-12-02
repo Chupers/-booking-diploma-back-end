@@ -38,10 +38,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/login").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/signUp").permitAll()
+                .antMatchers(HttpMethod.POST,"/user/signUpCustomer").permitAll()
                 .antMatchers(HttpMethod.POST,"/accommodation/save").hasRole(UserRoleList.EMPLOYER)
                 .antMatchers(HttpMethod.GET,"/accommodation/getAll").permitAll()
                 .antMatchers("/employer/*").hasRole(UserRoleList.EMPLOYER)
-                .antMatchers("/accommodation/*").hasRole(UserRoleList.EMPLOYER)
+                .antMatchers("/accommodation/*").permitAll()
+                .antMatchers("/organization/*").hasRole(UserRoleList.EMPLOYER)
+                .antMatchers("/search/*").permitAll()
                 .anyRequest().authenticated();
     }
 

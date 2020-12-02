@@ -17,4 +17,7 @@ public interface AccommodationService {
     Accommodation updatePhotoId(String photoId,Long accommodationId);
     void characteristicSave(Long accommodationId, List<Characteristic> characteristics);
     void submit(Long accommodationId);
+    List<Accommodation> findAllSubmitAccommodation();
+    List<Accommodation> findAllAvailableAccommodation();
+
 }

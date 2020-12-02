@@ -8,4 +8,5 @@ public interface EmployerService {
     Employee save(Employee employee);
     Employee findById(Long id);
     List<Employee> findAllByName(String name);
+    List<Employee> findAllEmployerByOrg();
 }
