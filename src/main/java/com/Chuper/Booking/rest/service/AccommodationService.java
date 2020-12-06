@@ -3,6 +3,7 @@ package com.Chuper.Booking.rest.service;
 import com.Chuper.Booking.entity.Accommodation;
 import com.Chuper.Booking.entity.AccommodationInfo;
 import com.Chuper.Booking.entity.Characteristic;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface AccommodationService {
     Accommodation save(Accommodation accommodation);
     Accommodation updateBasicInfo(Long accommodationId,AccommodationInfo accommodationInfo);
     void saveBasicInfo(AccommodationInfo accommodationInfo);
-    Accommodation updatePhotoId(String photoId,Long accommodationId);
+    Accommodation updatePhotoId(MultipartFile file, Long accommodationId);
     void characteristicSave(Long accommodationId, List<Characteristic> characteristics);
     void submit(Long accommodationId);
     List<Accommodation> findAllSubmitAccommodation();

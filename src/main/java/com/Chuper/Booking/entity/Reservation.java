@@ -23,6 +23,15 @@ public class Reservation {
     @ManyToOne
     private Customer customer;
 
+    private String passportNumber = "";
+
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
+    }
 
     public Long getId() {
         return id;

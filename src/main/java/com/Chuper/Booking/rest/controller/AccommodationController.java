@@ -5,6 +5,8 @@ import com.Chuper.Booking.entity.AccommodationInfo;
 import com.Chuper.Booking.entity.Characteristic;
 import com.Chuper.Booking.rest.service.AccommodationService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200",maxAge = 10000)
@@ -34,8 +36,8 @@ public class AccommodationController {
     }
 
     @PutMapping("/loadPhotoByIdGoogle")
-    public Accommodation loadPhoto(@RequestParam(name = "photoId") String photoId, @RequestParam(name = "id") Long id){
-        return accommodationService.updatePhotoId(photoId, id);
+    public Accommodation loadPhoto(@RequestParam Long id, @RequestParam MultipartFile file){
+        return accommodationService.updatePhotoId(file, id);
     }
     @PostMapping("/saveCharacteristic")
     public void

@@ -36,4 +36,9 @@ public class RoomServiceImpl implements RoomService {
         accommodation.getRooms().add(room);
         return accommodation;
     }
+
+    @Override
+    public Room findRoomById(Long id) {
+        return roomRepository.findAllById(id);
+    }
 }

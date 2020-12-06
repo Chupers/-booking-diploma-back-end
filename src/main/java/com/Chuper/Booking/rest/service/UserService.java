@@ -9,4 +9,6 @@ public interface UserService {
     UserFacade findById(Long id);
 
     UserFacade findByUserName(String userName);
+
+    UserFacade getCurrentUser();
 }

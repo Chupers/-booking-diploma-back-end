@@ -27,10 +27,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public void save(String organizationName, Employee employee) {
         Organization organization = new Organization();
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         organization.setOrganizationName(organizationName);
         organizationRepository.save(organization);
-        UserFacade userFacade = userService.findByUserName(userName);
+        UserFacade userFacade = userService.getCurrentUser();
         employee.setOrganization(organization);
         employee.setUserFacade(userFacade);
         employerService.save(employee);

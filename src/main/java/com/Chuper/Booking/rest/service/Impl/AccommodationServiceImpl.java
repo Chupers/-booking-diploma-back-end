@@ -8,10 +8,14 @@ import com.Chuper.Booking.rest.repository.CharacteristicRepository;
 import com.Chuper.Booking.rest.service.AccommodationService;
 import com.Chuper.Booking.rest.service.OrganizationService;
 import com.Chuper.Booking.rest.service.UserService;
+import com.Chuper.Booking.rest.service.google.GoogleDriveService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,9 +103,17 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public Accommodation updatePhotoId(String photoId, Long accommodationId) {
+    public Accommodation updatePhotoId(MultipartFile file, Long accommodationId){
         Accommodation accommodation = findById(accommodationId);
-        accommodation.setImageId(photoId);
+        try {
+            String path = GoogleDriveService.saveImage(file).getId();
+            accommodation.setImageId(GoogleDriveService.GOOGLE_PATH + path);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return accommodationRepository.save(accommodation);
     }
 

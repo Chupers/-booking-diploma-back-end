@@ -21,8 +21,6 @@ public class Customer {
 
     private String phone;
 
-    private String passportNumber = "";
-
     @JsonIgnore
     @OneToOne
     private UserFacade userFacade;
@@ -61,14 +59,6 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPassportNumber() {
-        return passportNumber;
-    }
-
-    public void setPassportNumber(String passportNumber) {
-        this.passportNumber = passportNumber;
     }
 
     public UserFacade getUserFacade() {

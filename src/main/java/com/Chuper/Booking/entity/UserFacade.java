@@ -1,5 +1,6 @@
 package com.Chuper.Booking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -25,6 +26,18 @@ public class UserFacade {
     private Employee employee;
 
     private String confirmHash;
+
+    @JsonIgnore
+    @OneToOne
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public Long getUserId() {
         return userId;

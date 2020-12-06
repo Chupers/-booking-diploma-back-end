@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ReservationService {
     List<Reservation> getReservationListByRoom(Long roomId);
-    void addReservation(Long accommodationId, Timestamp checkId,Timestamp checkOut);
+    void addReservation(Long roomId, String checkId,String checkOut,String passportNumber);
 }
