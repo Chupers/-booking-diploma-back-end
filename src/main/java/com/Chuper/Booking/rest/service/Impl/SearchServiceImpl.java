@@ -3,6 +3,7 @@ package com.Chuper.Booking.rest.service.Impl;
 import com.Chuper.Booking.entity.Accommodation;
 import com.Chuper.Booking.entity.AccommodationInfo;
 import com.Chuper.Booking.entity.Characteristic;
+import com.Chuper.Booking.entity.Room;
 import com.Chuper.Booking.rest.repository.AccommodationInfoRepository;
 import com.Chuper.Booking.rest.repository.CharacteristicRepository;
 import com.Chuper.Booking.rest.service.AccommodationService;
@@ -66,6 +67,43 @@ public class SearchServiceImpl  implements SearchService {
         }
         return new HashSet<>(cityList);
 
+    }
+
+    @Override
+    public List<Accommodation> findByDetailsFilter(Integer minPrice, Integer maxPrice, Integer countStar, String value) {
+        List<Accommodation> accommodationList;
+        if(countStar!=null){
+            accommodationList = filterAccommodationByAccommodationInfo(value).stream().filter(
+                    accommodation -> accommodation.getAccommodationInfo().getCountStar().equals(countStar))
+                    .collect(Collectors.toList());
+        }
+        else {
+            accommodationList = filterAccommodationByAccommodationInfo(value);
+        }
+
+        if(maxPrice != null){
+            accommodationList = accommodationList.stream().filter(accommodation -> filterByMaxPrice(accommodation,maxPrice)).collect(Collectors.toList());
+        }
+        if(maxPrice != null){
+            accommodationList = accommodationList.stream().filter(accommodation -> filterByMinPrice(accommodation,minPrice)).collect(Collectors.toList());
+        }
+        return accommodationList;
+    }
+
+    private Boolean filterByMaxPrice(Accommodation accommodation,Integer maxPrice){
+        for (Room room: accommodation.getRooms()){
+            if(room.getRoomCost() < maxPrice)
+                return true;
+        }
+        return false;
+    }
+
+    private Boolean filterByMinPrice(Accommodation accommodation,Integer minPrice){
+        for (Room room: accommodation.getRooms()){
+            if(room.getRoomCost() > minPrice)
+                return true;
+        }
+        return false;
     }
 
     @Override

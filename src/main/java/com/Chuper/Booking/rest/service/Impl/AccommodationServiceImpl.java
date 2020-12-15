@@ -85,6 +85,13 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
+    public Accommodation loadPhoto(Long id, String photo) {
+        Accommodation accommodation = findById(id);
+        accommodation.setImageId(GoogleDriveService.GOOGLE_PATH + photo);
+        return accommodationRepository.save(accommodation);
+    }
+
+    @Override
     public List<Accommodation> findAllSubmitAccommodation() {
         List<Accommodation> accommodationList = new ArrayList<>();
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();

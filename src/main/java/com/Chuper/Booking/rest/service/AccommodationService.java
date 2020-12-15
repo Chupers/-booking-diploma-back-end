@@ -18,6 +18,7 @@ public interface AccommodationService {
     Accommodation updatePhotoId(MultipartFile file, Long accommodationId);
     void characteristicSave(Long accommodationId, List<Characteristic> characteristics);
     void submit(Long accommodationId);
+    Accommodation loadPhoto(Long id,String photo);
     List<Accommodation> findAllSubmitAccommodation();
     List<Accommodation> findAllAvailableAccommodation();
 

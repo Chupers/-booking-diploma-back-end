@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:4200",maxAge = 10000)
 @RestController
-@RequestMapping("/organization")
+@RequestMapping("/reservation")
 public class ReservationController {
     private final ReservationService reservationService;
 

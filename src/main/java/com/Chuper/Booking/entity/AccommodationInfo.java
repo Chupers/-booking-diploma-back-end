@@ -1,9 +1,6 @@
 package com.Chuper.Booking.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class AccommodationInfo {
@@ -19,11 +16,11 @@ public class AccommodationInfo {
     private Integer countStar;
 
 
-    public int getCountStar() {
+    public Integer getCountStar() {
         return countStar;
     }
 
-    public void setCountStar(int countStar) {
+    public void setCountStar(Integer countStar) {
         this.countStar = countStar;
     }
 

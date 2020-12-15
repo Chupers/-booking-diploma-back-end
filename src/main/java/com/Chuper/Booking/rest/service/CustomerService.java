@@ -9,4 +9,5 @@ public interface CustomerService {
     Customer save(Customer customer);
     Customer findById(Long id);
     List<Customer> findAllByName(String name);
+    Customer findCustomerByUserName(String userName);
 }

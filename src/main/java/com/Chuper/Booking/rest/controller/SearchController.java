@@ -29,4 +29,13 @@ public class SearchController {
     public List<Accommodation> searchAccommodation(@RequestParam(name = "value") String value){
         return searchService.filterAccommodationByAccommodationInfo(value);
     }
+
+    @GetMapping("/searchDetails")
+    public List<Accommodation> searchAccommodationDetails(@RequestParam(name = "value") String value,
+                                                          @RequestParam(name = "minPrice")Integer minPrice,
+                                                          @RequestParam(name = "maxPrice")Integer maxPrice,
+                                                          @RequestParam(name = "countStar")Integer countStar){
+
+        return searchService.findByDetailsFilter(minPrice,maxPrice,countStar,value);
+    }
 }

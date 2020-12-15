@@ -21,5 +21,7 @@ public interface SearchService {
 
     Set<String> getCityList();
 
+    List<Accommodation> findByDetailsFilter(Integer minPrice,Integer maxPrice,Integer countStar,String value);
+
     List<Accommodation> getAccommodationList();
 }

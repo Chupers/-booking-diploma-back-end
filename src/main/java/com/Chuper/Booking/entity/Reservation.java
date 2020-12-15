@@ -20,6 +20,7 @@ public class Reservation {
     @ManyToOne
     private Room room;
 
+    @JsonIgnore
     @ManyToOne
     private Customer customer;
 

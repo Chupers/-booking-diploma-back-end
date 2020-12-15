@@ -22,6 +22,7 @@ public class UserFacade {
     @NotNull
     private String password;
 
+    @JsonIgnore
     @OneToOne
     private Employee employee;
 

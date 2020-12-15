@@ -17,8 +17,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-
-    @Transactional
     @Override
     public UserFacade save(UserFacade userFacade) {
         return userRepository.save(userFacade);

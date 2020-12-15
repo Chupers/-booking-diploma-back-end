@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  appProd:
+    image: 'docker-spring-boot-postgres:latest'
+    ports:
+    - 8443:8443
+    build:
+      context: .
+    container_name: appProd2
+    depends_on:
+      - dbProd2
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbProd2:5432/composepostgres
+      - SPRING_DATASOURCE_USERNAME=composepostgres
+      - SPRING_DATASOURCE_PASSWORD=composepostgres
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=update
+  dbProd2:
+    image: 'postgres:13.1-alpine'
+    container_name: dbProd2
+    environment:
+      - POSTGRES_USER=composepostgres
+      - POSTGRES_PASSWORD=composepostgres

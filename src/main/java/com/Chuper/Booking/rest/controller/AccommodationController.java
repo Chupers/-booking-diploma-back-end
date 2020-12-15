@@ -39,6 +39,10 @@ public class AccommodationController {
     public Accommodation loadPhoto(@RequestParam Long id, @RequestParam MultipartFile file){
         return accommodationService.updatePhotoId(file, id);
     }
+    @PutMapping("/loadPhotoById")
+    public Accommodation loadPhoto(@RequestParam(name = "id") Long id, @RequestParam(name = "photoId") String photoId){
+        return accommodationService.loadPhoto(id,photoId);
+    }
     @PostMapping("/saveCharacteristic")
     public void
     saveCharacteristic(@RequestParam(name = "id") Long id, @RequestBody List<Characteristic> characteristics){
